@@ -28,7 +28,8 @@ export const requireProfile = cache(async function requireProfile(): Promise<Pro
   const rows = await asUser(userId, (q) =>
     q<Profile>(`select id, role, full_name, company_name, email, phone from profiles where id = $1`, [userId]),
   ).catch((e) => {
-    console.error("[auth] could not load profile:", e);
+    // Next.js stops background pre-renders early; that is expected, not a failure.
+    if (!String(e?.message ?? e).includes("During prerendering")) console.error("[auth] could not load profile:", e);
     return [];
   });
 
