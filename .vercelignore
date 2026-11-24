@@ -1,0 +1,6 @@
+# Local-only build folders and test data: never upload to Vercel
+.next
+.next-test
+.next-prod
+node_modules
+*.log
